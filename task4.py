@@ -16,6 +16,9 @@ def input_error(func):
             return "Please provide correct arguments."
         except IndexError:
             return "Invalid number of arguments."
+        except TypeError:
+            return "Please provide a command."
+
     return inner
 
 @input_error
@@ -49,6 +52,10 @@ def main():
     contacts = {}  # словник для зберігання імен та номерів телефонів
     while True:
         command = input("Enter a command: ").strip().lower()
+        if not command:
+            print("Please provide a command.")
+            continue
+
         action, *arguments = parse_input(command)
 
         if action in ["close", "exit"]:
